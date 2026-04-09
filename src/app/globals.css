@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 213 48% 22%;
+    --foreground: 0 0% 100%;
+
+    --card: 213 48% 22%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 213 44% 25%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 349 85% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 40% 28%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 213 35% 30%;
+    --muted-foreground: 210 20% 85%;
+
+    --accent: 349 85% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 213 30% 32%;
+    --input: 213 35% 30%;
+    --ring: 349 85% 65%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 213 50% 18%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 350 50% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 40% 26%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 213 35% 30%;
+    --sidebar-ring: 350 50% 38%;
+
+    --navy-deep: 213 50% 16%;
+    --navy: 213 48% 22%;
+    --navy-light: 213 40% 28%;
+    --crimson: 349 90% 60%;
+    --crimson-light: 349 85% 65%;
+    --gold: 349 90% 60%;
+    --gold-light: 349 85% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)));
+  }
+
+  .bg-gradient-navy {
+    background: linear-gradient(180deg, hsl(var(--navy-deep)), hsl(var(--navy)));
+  }
+
+  .bg-gradient-card {
+    background: linear-gradient(135deg, hsl(var(--navy-light)), hsl(var(--card)));
+  }
+
+  .bg-primary-previous {
+    background-color: hsl(350 65% 45%);
+  }
+
+  .text-primary-previous {
+    color: hsl(350 65% 45%);
+  }
+}
