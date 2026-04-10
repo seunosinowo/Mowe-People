@@ -2,7 +2,7 @@ import { Providers } from "@/components/providers";
 import "./globals.css";
 
 export const metadata = {
-  title: "People First",
+  title: "Mowe Global",
   description: "A modern web application built with Next.js and shadcn/ui",
   icons: {
     icon: '/favicon.ico',
