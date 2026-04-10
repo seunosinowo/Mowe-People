@@ -19,6 +19,8 @@ const roles = [
   "Career Counselor at Rome Business School",
   "President, Smart Couples Clinic at Family Guidance & Counselling Centre",
   "Managing Partner, HRM Office Ltd at HR Technology & Consulting, Lagos",
+  "President, DiLLA, Digital Literacy & Leadership Academy - an institute for promoting digital literacy and responsible influence online and offline",
+  "Industry resource person for Town & Gown seminars at Covenant University, Ota, Nigeria",
 ];
 
 export default function AboutPage() {
