@@ -17,12 +17,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 group">
-          <img src="/mowe2.png" alt="MOWE Global Logo" className="h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
-          <div className="flex flex-col">
-            <span className="font-serif text-2xl font-black tracking-wider text-gray-900 transition-colors duration-300 group-hover:text-primary">MOWE</span>
-            <span className="text-[11px] tracking-[0.4em] text-gray-600 uppercase font-semibold transition-colors duration-300 group-hover:text-primary/80">Global</span>
-          </div>
+        <Link href="/" className="flex items-center group">
+          <img src="/logoblue.PNG" alt="MOWE Logo" className="h-14 w-auto transition-transform duration-300 group-hover:scale-110 drop-shadow-lg" />
         </Link>
 
         {/* Desktop */}

@@ -1,18 +1,59 @@
+"use client";
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <footer className="bg-card border-t border-border py-12">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <div className="h-14 w-14 bg-gray-200 rounded animate-pulse" />
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded animate-pulse" />
+              </div>
+            </div>
+            <div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse mb-4" />
+              <div className="space-y-2">
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+              </div>
+            </div>
+            <div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse mb-4" />
+              <div className="space-y-3">
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+              </div>
+            </div>
+          </div>
+          <div className="mt-10 pt-6 border-t border-border text-center">
+            <div className="h-3 bg-gray-200 rounded animate-pulse mx-auto w-48" />
+          </div>
+        </div>
+      </footer>
+    );
+  }
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4 group">
-              <img src="/mowe2.png" alt="MOWE Global Logo" className="h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
-              <div>
-                <h3 className="font-serif text-2xl font-black text-foreground mb-0 transition-colors duration-300 group-hover:text-primary">MOWE</h3>
-                <p className="text-[11px] tracking-[0.4em] text-muted-foreground uppercase font-semibold transition-colors duration-300 group-hover:text-primary/80">Global</p>
-              </div>
+            <div className="flex items-center mb-4 group">
+              <img src="/logowhiite.PNG" alt="MOWE Logo" className="h-14 w-auto transition-transform duration-300 group-hover:scale-110 drop-shadow-lg" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Ministry of Workforce Engagement.<br />

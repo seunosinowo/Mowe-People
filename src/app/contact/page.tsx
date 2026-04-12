@@ -36,9 +36,14 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-serif text-lg font-bold text-foreground mb-1">Phone</h3>
-                <a href="tel:+2348032613268" className="text-muted-foreground hover:text-primary transition-colors">
-                  +234 803 261 3268
-                </a>
+                <div className="space-y-2">
+                  <a href="tel:+2348032613268" className="block text-muted-foreground hover:text-primary transition-colors">
+                    +234 803 261 3268
+                  </a>
+                  <a href="tel:+2347043071341" className="block text-muted-foreground hover:text-primary transition-colors">
+                    +234 704 307 1341
+                  </a>
+                </div>
               </div>
             </div>
 
