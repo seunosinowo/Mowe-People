@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src="/logo.png" alt="MOWE Global Logo" className="h-10 w-auto brightness-0 invert" />
+              <img src="/logo.png" alt="MOWE Global Logo" className="h-10 w-auto" />
               <div>
                 <h3 className="font-serif text-xl font-bold text-foreground mb-0">MOWE</h3>
                 <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Global</p>
