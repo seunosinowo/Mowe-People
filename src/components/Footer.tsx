@@ -7,11 +7,11 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src="/logo.png" alt="MOWE Global Logo" className="h-10 w-auto" />
+            <div className="flex items-center gap-3 mb-4 group">
+              <img src="/mowe2.png" alt="MOWE Global Logo" className="h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
               <div>
-                <h3 className="font-serif text-xl font-bold text-foreground mb-0">MOWE</h3>
-                <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Global</p>
+                <h3 className="font-serif text-2xl font-black text-foreground mb-0 transition-colors duration-300 group-hover:text-primary">MOWE</h3>
+                <p className="text-[11px] tracking-[0.4em] text-muted-foreground uppercase font-semibold transition-colors duration-300 group-hover:text-primary/80">Global</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
