@@ -20,7 +20,7 @@ export default function Footer() {
         <div>
           <div className="footer-heading">Contact</div>
           <div className="footer-links">
-            <a href="mailto:moweglobaloffice@gmail.com">moweglobaloffice@gmail.com</a>
+            <a href="mailto:support@moweglobal.com">support@moweglobal.com</a>
             <a href="tel:+2348032613268">+234 803 261 3268</a>
           </div>
         </div>

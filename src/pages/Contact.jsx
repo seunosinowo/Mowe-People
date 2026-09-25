@@ -117,7 +117,7 @@ export default function Contact() {
         <div className="info-stack reveal" data-reveal style={{ animationDelay: '.1s' }}>
           <div className="info-card">
             <div className="label">Email</div>
-            <div className="value"><a href="mailto:moweglobaloffice@gmail.com">moweglobaloffice@gmail.com</a></div>
+            <div className="value"><a href="mailto:support@moweglobal.com">support@moweglobal.com</a></div>
           </div>
           <div className="info-card">
             <div className="label">Phone</div>

@@ -50,7 +50,7 @@ export default async function handler(request, response) {
       secure: process.env.SMTP_SECURE !== 'false',
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS.replace(/\s+/g, '') },
     });
-    const to = process.env.REGISTRATION_EMAIL_TO || process.env.SMTP_USER;
+    const to = process.env.CONTACT_EMAIL_TO || 'support@moweglobal.com';
     await transport.sendMail({
       from: `MOWE Global Website <${process.env.SMTP_USER}>`,
       to,
