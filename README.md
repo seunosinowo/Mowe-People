@@ -35,4 +35,8 @@ The app routes are `/`, `/services`, `/fred-rabbi`, and `/contact`.
 
 ## Forms
 
-The programme calendar, contact form, and newsletter currently use front-end placeholder submissions; they are not connected to a server. The Future of Work Summit form prepares an email to MOWE Global so the visitor can send their registration request.
+Programme calendar and Future of Work Summit registrations are submitted to `/api/event-registration`, saved in the Neon `event_registrations` table, and emailed to `REGISTRATION_EMAIL_TO` (defaults to `moweglobaloffice@gmail.com`) through Gmail SMTP. Configure `DATABASE_URL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_SECURE`, and `REGISTRATION_EMAIL_TO` in `.env` for local use and as Vercel project environment variables for production. SMTP credentials must be stored only in server environment variables; `.env` is ignored by Git.
+
+The API creates the `event_registrations` table on its first successful request. `.env` is ignored by Git; use `.env.example` as a template and configure the same variable in Vercel for production.
+
+For local development, restart `npm run dev` after changing `.env`. Vite serves `/api/event-registration` through the local API middleware. Submitting a form sends a real email and writes to the configured Neon database.

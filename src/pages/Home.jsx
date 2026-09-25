@@ -7,8 +7,14 @@ import {
 } from '../data/homeData';
 
 async function submitEventRegistration(payload) {
-  console.log('Event registration submitted (not yet sent anywhere):', payload);
-  return { ok: true };
+  const response = await fetch('/api/event-registration', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || 'Registration could not be saved. Please try again.');
+  return result;
 }
 
 async function subscribeToNewsletter(email) {
@@ -26,7 +32,11 @@ export default function Home() {
   const [eventPopup, setEventPopup] = useState({ visible: false });
   const [summitModalOpen, setSummitModalOpen] = useState(false);
   const [summitRegistrationSent, setSummitRegistrationSent] = useState(false);
+  const [summitSubmitting, setSummitSubmitting] = useState(false);
+  const [summitError, setSummitError] = useState('');
   const [summitForm, setSummitForm] = useState({ name: '', email: '', audience: 'Graduate' });
+  const [eventSubmitting, setEventSubmitting] = useState(false);
+  const [eventError, setEventError] = useState('');
   const pillarRefs = useRef([]);
 
   useEffect(() => {
@@ -71,8 +81,16 @@ export default function Home() {
     const email = form.querySelector('.reg-email').value.trim();
     if (!name) return;
     const ev = events.find((x) => x.id === id);
-    await submitEventRegistration({ eventId: id, eventTitle: ev.title, name, email });
-    setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, registered: true, openForm: false } : e)));
+    setEventSubmitting(true);
+    setEventError('');
+    try {
+      await submitEventRegistration({ eventId: id, eventTitle: ev.title, eventDate: ev.date, name, email });
+      setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, registered: true, openForm: false } : e)));
+    } catch (error) {
+      setEventError(error.message || 'Registration could not be saved. Please try again.');
+    } finally {
+      setEventSubmitting(false);
+    }
   };
 
   const handleNewsletter = async (e) => {
@@ -84,12 +102,21 @@ export default function Home() {
     setNewsletterState({ email: '', submitting: false, success: true });
   };
 
-  const handleSummitRegistration = (e) => {
+  const handleSummitRegistration = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent('Future of Work Summit registration');
-    const body = encodeURIComponent(`Please register me for the Future of Work Summit.\n\nName: ${summitForm.name.trim()}\nEmail: ${summitForm.email.trim()}\nI am registering as: ${summitForm.audience}\n\nPlease send me the online access link.`);
-    window.location.href = `mailto:moweglobaloffice@gmail.com?subject=${subject}&body=${body}`;
-    setSummitRegistrationSent(true);
+    setSummitSubmitting(true);
+    setSummitError('');
+    try {
+      await submitEventRegistration({
+        eventId: 0, eventTitle: 'Future of Work Summit', eventDate: '1 October 2026 · Online',
+        name: summitForm.name.trim(), email: summitForm.email.trim(), audience: summitForm.audience,
+      });
+      setSummitRegistrationSent(true);
+    } catch (error) {
+      setSummitError(error.message || 'Registration could not be sent. Please try again.');
+    } finally {
+      setSummitSubmitting(false);
+    }
   };
 
   const marqueeHtml = marqueePeople.map((p) => (
@@ -243,7 +270,8 @@ export default function Home() {
                     <form className="event-form" onSubmit={(e) => handleEventSubmit(e, ev.id)}>
                       <input type="text" placeholder="Your name" className="reg-name" required />
                       <input type="email" placeholder="Your email" className="reg-email" required />
-                      <button type="submit">Confirm Registration</button>
+                      <button type="submit" disabled={eventSubmitting}>{eventSubmitting ? 'Submitting…' : 'Confirm Registration'}</button>
+                      {eventError && <p className="event-form-error" role="alert">{eventError}</p>}
                     </form>
                   ) : (
                     <button className="event-register-btn" onClick={() => openEventForm(ev.id)}>Register</button>
@@ -413,8 +441,7 @@ export default function Home() {
             <h2 id="summit-modal-title">Register for the Future of Work Summit</h2>
             {summitRegistrationSent ? (
               <div className="summit-registration-success">
-                <p>Your email app should open with your registration details. Send the message to complete your registration. MOWE Global will share the online access link with you.</p>
-                <a href="mailto:moweglobaloffice@gmail.com?subject=Future%20of%20Work%20Summit%20registration">Email MOWE Global</a>
+                <p>Your registration has been sent to MOWE Global. We’ll share the online access link with you.</p>
               </div>
             ) : (
               <form className="summit-form" onSubmit={handleSummitRegistration}>
@@ -426,7 +453,8 @@ export default function Home() {
                   </select>
                 </label>
                 <p>We'll send your online access link after registration.</p>
-                <button type="submit" className="summit-register">Continue registration</button>
+                {summitError && <p className="event-form-error" role="alert">{summitError}</p>}
+                <button type="submit" className="summit-register" disabled={summitSubmitting}>{summitSubmitting ? 'Sending…' : 'Complete registration'}</button>
               </form>
             )}
           </div>
