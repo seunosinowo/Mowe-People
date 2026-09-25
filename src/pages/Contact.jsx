@@ -2,28 +2,38 @@ import { useState } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 
 async function submitContactRequest(payload) {
-  console.log('Contact request submitted (not yet sent anywhere):', payload);
-  return { ok: true };
+  const response = await fetch('/api/contact-request', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || 'We could not send your message. Please try again.');
+  return result;
 }
 
 export default function Contact() {
   useScrollReveal();
   const [form, setForm] = useState({ name: '', email: '', org: '', interest: 'Speaking / Keynote', message: '' });
-  const [submitState, setSubmitState] = useState({ submitting: false, success: false });
+  const [submitState, setSubmitState] = useState({ submitting: false, success: false, error: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = form.name.trim();
     if (!name) return;
-    setSubmitState({ submitting: true, success: false });
-    await submitContactRequest({
-      name,
-      email: form.email.trim(),
-      org: form.org.trim(),
-      interest: form.interest,
-      message: form.message.trim(),
-    });
-    setSubmitState({ submitting: false, success: true });
+    setSubmitState({ submitting: true, success: false, error: '' });
+    try {
+      await submitContactRequest({
+        name,
+        email: form.email.trim(),
+        org: form.org.trim(),
+        interest: form.interest,
+        message: form.message.trim(),
+      });
+      setSubmitState({ submitting: false, success: true, error: '' });
+    } catch (error) {
+      setSubmitState({ submitting: false, success: false, error: error.message });
+    }
   };
 
   return (
@@ -41,6 +51,7 @@ export default function Contact() {
           <div className="form-success" style={{ display: submitState.success ? 'block' : 'none' }}>
             ✓ Message received — we'll follow up within 2 business days.
           </div>
+          {submitState.error && <div className="form-error" role="alert">{submitState.error}</div>}
           <form onSubmit={handleSubmit} style={{ display: submitState.success ? 'none' : 'block' }}>
             <div className="field">
               <label htmlFor="cName">Full Name</label>

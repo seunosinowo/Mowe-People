@@ -235,6 +235,7 @@ body.modal-open { overflow: hidden; }
 .page-contact .submit-btn:active { transform: scale(0.98); }
 .page-contact .submit-btn:disabled { opacity: 0.7; cursor: default; }
 .page-contact .form-success { display: none; padding: 22px; border-radius: 12px; background: rgba(34,160,107,0.15); color: #6fe0a4; font-weight: 600; font-size: 15px; text-align: center; }
+.page-contact .form-error { margin: 0 0 18px; padding: 16px; border: 1px solid rgba(226,72,58,0.35); border-radius: 10px; background: rgba(200,40,27,0.12); color: #ff9a90; font-size: 14px; line-height: 1.5; }
 
 .page-contact .info-stack { display: flex; flex-direction: column; gap: 16px; }
 .page-contact .info-card { background: #0f1723; border: 1px solid #1c2836; border-radius: 16px; padding: 24px; }
