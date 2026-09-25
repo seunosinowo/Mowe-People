@@ -316,11 +316,12 @@ a:hover { color: #a01f15; }
 .page-home .summit-register { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 0; border-radius: 100px; padding: 14px 22px; color: #fff; background: #c8281b; font: 700 14px 'Afacad', sans-serif; cursor: pointer; transition: background .18s, transform .18s; }
 .page-home .summit-register:hover { background: #a01f15; transform: translateY(-2px); }
 .page-home .summit-modal-backdrop { position: fixed; z-index: 500; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(6,15,29,.72); backdrop-filter: blur(8px); }
-.page-home .summit-modal { position: relative; width: min(100%, 500px); max-height: calc(100vh - 40px); overflow-y: auto; padding: 36px; border: 1px solid rgba(255,255,255,.7); border-radius: 20px; background: #fff; box-shadow: 0 30px 90px rgba(0,0,0,.3); }
+.page-home .summit-modal { position: relative; width: min(100%, 680px); max-height: calc(100vh - 40px); overflow-y: auto; padding: 36px; border: 1px solid rgba(255,255,255,.7); border-radius: 20px; background: #fff; box-shadow: 0 30px 90px rgba(0,0,0,.3); }
 .page-home .summit-modal-close { position: absolute; top: 14px; right: 16px; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; color: #52627a; background: #f0f2f6; font: 400 25px/1 Arial, sans-serif; cursor: pointer; transition: color .16s, background .16s, transform .16s; }
 .page-home .summit-modal-close:hover { color: #fff; background: #c8281b; transform: rotate(90deg); }
 .page-home .summit-modal-close:focus-visible { outline: 3px solid rgba(200,40,27,.3); outline-offset: 3px; }
 .page-home .summit-modal h2 { margin: 18px 36px 24px 0; color: #0f2a52; font: 800 30px/1.12 'Afacad Flux', sans-serif; }
+.page-home .summit-zoho-form { display: block; width: 100%; height: min(68vh, 620px); min-height: 440px; border: 0; }
 .page-home .summit-form { display: flex; flex-direction: column; gap: 16px; }
 .page-home .summit-form label { display: flex; flex-direction: column; gap: 7px; color: #34445c; font-size: 13px; font-weight: 700; }
 .page-home .summit-form input, .page-home .summit-form select { width: 100%; padding: 13px 14px; border: 1px solid #d8dee8; border-radius: 9px; color: #172335; background: #fff; font: 400 15px 'Afacad', sans-serif; }

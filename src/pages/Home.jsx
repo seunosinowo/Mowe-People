@@ -31,10 +31,6 @@ export default function Home() {
   const [activePillar, setActivePillar] = useState(0);
   const [eventPopup, setEventPopup] = useState({ visible: false });
   const [summitModalOpen, setSummitModalOpen] = useState(false);
-  const [summitRegistrationSent, setSummitRegistrationSent] = useState(false);
-  const [summitSubmitting, setSummitSubmitting] = useState(false);
-  const [summitError, setSummitError] = useState('');
-  const [summitForm, setSummitForm] = useState({ name: '', email: '', audience: 'Graduate' });
   const [eventSubmitting, setEventSubmitting] = useState(false);
   const [eventError, setEventError] = useState('');
   const pillarRefs = useRef([]);
@@ -100,23 +96,6 @@ export default function Home() {
     setNewsletterState((s) => ({ ...s, submitting: true }));
     await subscribeToNewsletter(email);
     setNewsletterState({ email: '', submitting: false, success: true });
-  };
-
-  const handleSummitRegistration = async (e) => {
-    e.preventDefault();
-    setSummitSubmitting(true);
-    setSummitError('');
-    try {
-      await submitEventRegistration({
-        eventId: 0, eventTitle: 'Future of Work Summit', eventDate: '1 October 2026 · Online',
-        name: summitForm.name.trim(), email: summitForm.email.trim(), audience: summitForm.audience,
-      });
-      setSummitRegistrationSent(true);
-    } catch (error) {
-      setSummitError(error.message || 'Registration could not be sent. Please try again.');
-    } finally {
-      setSummitSubmitting(false);
-    }
   };
 
   const marqueeHtml = marqueePeople.map((p) => (
@@ -438,24 +417,12 @@ export default function Home() {
             <button className="summit-modal-close" type="button" aria-label="Close registration" onClick={() => setSummitModalOpen(false)}>&times;</button>
             <div className="summit-label"><span></span> 1 October 2026 · Online</div>
             <h2 id="summit-modal-title">Register for the Future of Work Summit</h2>
-            {summitRegistrationSent ? (
-              <div className="summit-registration-success">
-                <p>Your registration has been sent to MOWE Global. We’ll share the online access link with you.</p>
-              </div>
-            ) : (
-              <form className="summit-form" onSubmit={handleSummitRegistration}>
-                <label>Full name<input required autoComplete="name" value={summitForm.name} onChange={(e) => setSummitForm((f) => ({ ...f, name: e.target.value }))} placeholder="Your name" /></label>
-                <label>Email address<input required type="email" autoComplete="email" value={summitForm.email} onChange={(e) => setSummitForm((f) => ({ ...f, email: e.target.value }))} placeholder="you@example.com" /></label>
-                <label>I am registering as
-                  <select value={summitForm.audience} onChange={(e) => setSummitForm((f) => ({ ...f, audience: e.target.value }))}>
-                    <option>Graduate</option><option>Young professional</option><option>Corporate member</option>
-                  </select>
-                </label>
-                <p>We'll send your online access link after registration.</p>
-                {summitError && <p className="event-form-error" role="alert">{summitError}</p>}
-                <button type="submit" className="summit-register" disabled={summitSubmitting}>{summitSubmitting ? 'Sending…' : 'Complete registration'}</button>
-              </form>
-            )}
+            <iframe
+              className="summit-zoho-form"
+              title="Register for the Future of Work Summit"
+              src="https://zgnp-zngp.maillist-manage.com/ua/Optin?od=11287ecdabbfc3&zx=138125574&lD=117d0fa9a9d5af077&sD=117d0fa9a9d5af092"
+              loading="lazy"
+            />
           </div>
         </div>
       )}
@@ -465,7 +432,7 @@ export default function Home() {
           <div className="tag"><span>Upcoming Event</span></div>
           <div className="title">{eventPopup.title}</div>
           <div className="meta">{eventPopup.meta}</div>
-          <button type="button" onClick={() => { setEventPopup((p) => ({ ...p, visible: false })); setSummitRegistrationSent(false); setSummitModalOpen(true); }}>Register now</button>
+          <button type="button" onClick={() => { setEventPopup((p) => ({ ...p, visible: false })); setSummitModalOpen(true); }}>Register now</button>
         </div>
       )}
     </div>
