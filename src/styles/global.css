@@ -32,7 +32,7 @@ a:hover { color: #a01f15; }
 .hero .btn-primary:active { transform: scale(0.97); }
 
 .marquee-wrap { position: relative; z-index: 1; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
-@keyframes moweMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes moweMarquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 .marquee-track { display: flex; gap: 16px; width: max-content; animation: moweMarquee 32s linear infinite; }
 .marquee-set { display: flex; gap: 16px; }
 .marquee-card { position: relative; width: 190px; height: 240px; flex-shrink: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0,0,0,0.3); }

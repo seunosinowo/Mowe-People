@@ -56,8 +56,8 @@ nav.links { display: flex; align-items: center; gap: 4px; flex: 1; }
 .dd-feature p { font-size: 12.5px; color: #5b6b85; line-height: 1.5; margin: 0 0 10px; }
 .dd-feature a { font-size: 12.5px; font-weight: 700; color: #c8281b; }
 
-.book-btn { padding: 12px 26px; border-radius: 8px; background: #c8281b; color: #ffffff; font-weight: 700; font-size: 14px; white-space: nowrap; flex-shrink: 0; box-shadow: 0 6px 18px rgba(200,40,27,0.3); transition: transform 180ms, background 180ms; }
-.book-btn:hover { background: #e2483a; transform: scale(1.04); color: #ffffff; }
+.book-btn, body.page-dark a.book-btn { padding: 12px 26px; border-radius: 8px; background: #c8281b; color: #ffffff; font-weight: 700; font-size: 14px; white-space: nowrap; flex-shrink: 0; box-shadow: 0 6px 18px rgba(200,40,27,0.3); transition: transform 180ms, background 180ms; }
+.book-btn:hover, body.page-dark a.book-btn:hover { background: #e2483a; transform: scale(1.04); color: #ffffff; }
 .book-btn:active { transform: scale(0.97); transition: transform 100ms ease-out; }
 
 .nav-burger {

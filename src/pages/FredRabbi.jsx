@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { books, qualifications, roles, values, galleryItems, flipCards, trioPanels } from '../data/fredData';
+import { books, qualifications, roles, values, galleryItems, flipCards } from '../data/fredData';
 
 async function subscribeToNewsletter(email) {
   console.log('Newsletter signup (not yet sent anywhere):', email);
@@ -52,19 +52,15 @@ export default function FredRabbi() {
   return (
     <div className="page-fred page-dark">
       <section className="hero">
-        <img className="hero-ambient" src="/assets/DSC00997.jpg" alt="" />
+        <img className="hero-ambient" src="/assets/fred/fred.jpeg" alt="" />
         <div className="hero-copy">
           <div className="up eyebrow-dot" style={{ animationDelay: '.1s' }}><span className="dot"></span>Public Speaker · Performance Coach</div>
           <h1 className="up flex-fx hero-statement" style={{ animationDelay: '.25s' }}>I turn potential<br />into performance<br />that lasts.</h1>
-          <div className="up hero-signature" style={{ animationDelay: '.5s' }}>— <span className="shimmer-text">Fred Rabbi</span></div>
+          <div className="up hero-signature" style={{ animationDelay: '.5s' }}><span className="shimmer-text">Fred Rabbi</span></div>
           <div className="up hero-ctas" style={{ animationDelay: '.65s' }}>
             <Link to="/contact#book" className="btn-primary magnetic">Book A Discovery Call <span className="magnetic-icon">→</span></Link>
             <a href="#watch" className="btn-ghost">Watch Fred Speak</a>
           </div>
-        </div>
-        <div className="hero-portrait-slot">
-          <img className="watermark" src="/assets/fred-rabbi-logo.png" alt="" />
-          <img className="hero-portrait" src="/assets/fred-portrait-nobg.png" alt="Fred Okeagu" />
         </div>
       </section>
 
@@ -88,13 +84,13 @@ export default function FredRabbi() {
       <section className="bio">
         <div className="eyebrow">My Story</div>
         <h2 className="flex-fx">I didn't set out to be a speaker. I set out to fix broken teams.</h2>
-        <p>I'm a seasoned HR professional with over 15 years in Human Capital Management — a practicing Senior HR Professional &amp; Performance Management expert, personality assessment coach, and the initiator of the Certified Business Admin &amp; Managers Course (CBAM).</p>
-        <p>Along the way I found the stage was just an extension of the boardroom — the same work of getting people to actually show up, own their part, and move together. On stage or off it, I bring the same conviction: strategy without people is incomplete.</p>
+        <p>I'm a seasoned HR professional with over 15 years in Human Capital Management, a practicing Senior HR Professional &amp; Performance Management expert, personality assessment coach, and the initiator of the Certified Business Admin &amp; Managers Course (CBAM).</p>
+        <p>Along the way I found the stage was just an extension of the boardroom, the same work of getting people to actually show up, own their part, and move together. On stage or off it, I bring the same conviction: strategy without people is incomplete.</p>
       </section>
 
       <section className="quote-band">
         <img className="bg" src="/assets/C0016T01.jpg" alt="" />
-        <blockquote className="reveal" data-reveal>"Commitment isn't demanded.<br />It's earned — one honest room at a time."</blockquote>
+        <blockquote className="reveal" data-reveal>"Commitment isn't demanded.<br />It's earned one honest room at a time."</blockquote>
       </section>
 
       <section className="gallery-section">
@@ -120,19 +116,13 @@ export default function FredRabbi() {
       <section className="flip-section">
         <div className="flip-grid">
           {flipCards.map((c) => (
-            <div className="flip-card" key={c.title}>
-              <div className="flip-inner">
-                <div className="flip-front">
-                  <img src={c.img} alt={c.title} />
-                  <h3 className="flex-fx">{c.title}</h3>
-                </div>
-                <div className="flip-back">
-                  <h3 className="flex-fx">{c.backTitle}</h3>
-                  <p>{c.description}</p>
-                  <Link to="/contact#book">{c.cta}</Link>
-                </div>
+            <article className="flip-card" key={c.title}>
+              <img className="fred-service-image" src={c.img} alt="" />
+              <div className="fred-service-copy">
+                <h3>{c.title}</h3>
+                <p>{c.description}</p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
@@ -207,21 +197,6 @@ export default function FredRabbi() {
         </div>
       </section>
 
-      <section className="trio">
-        {trioPanels.map((p) => (
-          <div
-            key={p.title}
-            className="trio-panel reveal"
-            data-reveal
-            style={{ animationDelay: p.delay || '0s' }}
-          >
-            <img src={p.img} alt="" />
-            <div className="trio-title flex-fx">{p.title}</div>
-            <p>{p.text}</p>
-          </div>
-        ))}
-      </section>
-
       <section className="values-section">
         <div className="section-head">
           <div className="eyebrow" style={{ textAlign: 'center' }}>What I Stand For</div>
@@ -242,13 +217,16 @@ export default function FredRabbi() {
           <div className="eyebrow" style={{ textAlign: 'center' }}>On Video</div>
           <h2 className="flex-fx">Watch Fred Rabbi Speak</h2>
         </div>
-        <a href="#" className="video-thumb">
-          <div className="play-btn">
-            <div className="play-circle">
-              <div className="play-tri"></div>
-            </div>
-          </div>
-        </a>
+        <div className="video-thumb">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/S0Mqi-8LWR4"
+            title="Fred Rabbi speaking"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
       </section>
 
       <section className="newsletter-section">
@@ -257,7 +235,7 @@ export default function FredRabbi() {
             <h2>Get my notes on leadership.</h2>
             <p>A short monthly note on coaching, performance, and building teams that show up.</p>
           </div>
-          <div className="newsletter-success" style={{ display: newsletterState.success ? 'block' : 'none' }}>✓ Subscribed — welcome aboard.</div>
+          <div className="newsletter-success" style={{ display: newsletterState.success ? 'block' : 'none' }}>✓ Subscribed. Welcome aboard.</div>
           <form
             className="newsletter-form"
             onSubmit={handleNewsletter}
@@ -280,7 +258,7 @@ export default function FredRabbi() {
       <section className="cta-section">
         <div className="cta-box">
           <h2 className="flex-fx">Bring Fred Rabbi to Your Next Event</h2>
-          <p>Keynotes, workshops, and executive coaching engagements — tailored to your audience.</p>
+          <p>Keynotes, workshops, and executive coaching engagements tailored to your audience.</p>
           <Link to="/contact#book" className="cta-btn magnetic">Book Fred to Speak <span className="magnetic-icon">→</span></Link>
         </div>
       </section>

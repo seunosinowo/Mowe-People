@@ -162,7 +162,6 @@ export default function Home() {
         <div className="up marquee-wrap" style={{ animationDelay: '.7s' }}>
           <div className="marquee-track">
             <div className="marquee-set">{marqueeHtml}</div>
-            <div className="marquee-set">{marqueeHtml}</div>
           </div>
         </div>
       </section>

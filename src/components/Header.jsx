@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
   { key: 'home', to: '/', label: 'Home' },
-  { key: 'fredrabbi', to: '/fred-rabbi', label: 'Fred Rabbi' },
+  { key: 'fredrabbi', to: '/fred-rabbi', label: 'About' },
   { key: 'contact', to: '/contact', label: 'Contact' },
 ];
 
@@ -99,7 +99,7 @@ export default function Header() {
               to="/fred-rabbi"
               className={`nav-link${active === 'fredrabbi' ? ' active' : ''}`}
             >
-              Fred Rabbi
+              About
             </Link>
             <Link
               to="/contact"
@@ -144,7 +144,7 @@ export default function Header() {
             style={{ transitionDelay: '160ms' }}
             onClick={() => setMobileOpen(false)}
           >
-            Fred Rabbi
+            About
           </Link>
           <Link
             to="/contact"
