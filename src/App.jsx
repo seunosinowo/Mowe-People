@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -28,7 +28,7 @@ function PageWrapper() {
   useEffect(() => {
     document.body.className = '';
     const path = location.pathname;
-    if (path === '/fred-rabbi' || path === '/contact') {
+    if (path === '/about' || path === '/fred-rabbi' || path === '/contact') {
       document.body.classList.add('page-dark');
     }
   }, [location]);
@@ -39,7 +39,8 @@ function PageWrapper() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/fred-rabbi" element={<FredRabbi />} />
+          <Route path="/about" element={<FredRabbi />} />
+          <Route path="/fred-rabbi" element={<Navigate to="/about" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>

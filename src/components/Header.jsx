@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
   { key: 'home', to: '/', label: 'Home' },
-  { key: 'fredrabbi', to: '/fred-rabbi', label: 'About' },
+  { key: 'fredrabbi', to: '/about', label: 'About' },
   { key: 'contact', to: '/contact', label: 'Contact' },
 ];
 
@@ -16,7 +16,7 @@ export default function Header() {
     const path = location.pathname;
     if (path === '/' || path === '') return 'home';
     if (path === '/services') return 'services';
-    if (path === '/fred-rabbi') return 'fredrabbi';
+    if (path === '/about' || path === '/fred-rabbi') return 'fredrabbi';
     if (path === '/contact') return 'contact';
     return '';
   };
@@ -79,7 +79,7 @@ export default function Header() {
                 <div className="dd-panel">
                   <div className="dd-heading">Quick Links</div>
                   <div className="dd-list">
-                    <Link to="/fred-rabbi">Meet Fred Rabbi</Link>
+                    <Link to="/about">Meet Fred Rabbi</Link>
                     <Link to="/contact">Contact Us</Link>
                     <Link to="/services">All Programmes</Link>
                   </div>
@@ -96,7 +96,7 @@ export default function Header() {
               </div>
             </div>
             <Link
-              to="/fred-rabbi"
+              to="/about"
               className={`nav-link${active === 'fredrabbi' ? ' active' : ''}`}
             >
               About
@@ -139,7 +139,7 @@ export default function Header() {
             Services
           </Link>
           <Link
-            to="/fred-rabbi"
+            to="/about"
             className={`mobile-link${active === 'fredrabbi' ? ' active' : ''}`}
             style={{ transitionDelay: '160ms' }}
             onClick={() => setMobileOpen(false)}

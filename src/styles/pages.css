@@ -3,9 +3,12 @@ body.page-dark a { color: #c8281b; }
 body.page-dark a:hover { color: #e2483a; }
 
 .page-fred .hero { position: relative; background: #0a0a0a; overflow: hidden; min-height: 560px; display: grid; grid-template-columns: 1fr; align-items: stretch; }
-.page-fred .hero-ambient { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; opacity: 0.68; filter: none; z-index: 0; }
+.page-fred .hero-ambient { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; opacity: 0.68; filter: none; z-index: 0; }
 .page-fred .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.62) 48%, rgba(10,10,10,0.12) 100%); z-index: 0; }
-.page-fred .hero-copy { padding: 88px 56px 56px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.page-fred .hero-copy { padding: 88px clamp(380px, 42vw, 560px) 56px 56px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+.page-fred .hero-portrait-wrap { position: absolute; z-index: 1; right: 3%; bottom: 0; width: min(40%, 500px); height: 100%; display: flex; align-items: flex-end; justify-content: flex-end; pointer-events: none; }
+.page-fred .hero-portrait { position: relative; z-index: 1; display: block; width: min(100%, 450px); height: calc(100% - 40px); object-fit: contain; object-position: bottom right; filter: drop-shadow(0 10px 24px rgba(0,0,0,.35)); }
+.page-fred .hero-brand-logo { position: absolute; z-index: 0; right: 0; bottom: 13%; width: min(100%, 460px); height: auto; object-fit: contain; opacity: 1; filter: brightness(0) invert(1); }
 .page-fred .eyebrow-dot { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #d8d8d8; margin-bottom: 24px; }
 .page-fred .eyebrow-dot span.dot { width: 7px; height: 7px; border-radius: 100%; background: #c8281b; }
 .page-fred .hero-statement { font-weight: 800; font-size: clamp(40px, 6.2vw, 68px); line-height: 1.03; margin: 0 0 20px; letter-spacing: -0.03em; }
@@ -51,8 +54,10 @@ body.page-dark a:hover { color: #e2483a; }
 
 .page-fred .flip-section { background: #0f1723; padding: 88px 24px; }
 .page-fred .flip-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.page-fred .flip-card { overflow: hidden; border: 1px solid #263447; border-radius: 14px; background: #101a28; }
-.page-fred .fred-service-image { display: block; width: 100%; height: 280px; object-fit: cover; object-position: center top; filter: contrast(1.08) saturate(1.08); }
+.page-fred .flip-card { overflow: hidden; border: 1px solid #263447; border-radius: 14px; background: #101a28; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.page-fred .flip-card:hover { transform: translateY(-8px); border-color: rgba(200,40,27,.65); box-shadow: 0 22px 48px rgba(0,0,0,.32); }
+.page-fred .fred-service-image { display: block; width: 100%; height: 280px; object-fit: cover; object-position: center top; filter: contrast(1.08) saturate(1.08); transition: transform .5s ease; }
+.page-fred .flip-card:hover .fred-service-image { transform: scale(1.045); }
 .page-fred .fred-service-copy { padding: 22px 24px 24px; }
 .page-fred .fred-service-copy h3 { margin: 0 0 10px; color: #fff; font: 700 21px 'Afacad Flux', sans-serif; }
 .page-fred .fred-service-copy p { min-height: 66px; margin: 0 0 18px; color: #b3bfd0; font-size: 14px; line-height: 1.6; }
@@ -245,7 +250,7 @@ body.modal-open { overflow: hidden; }
 .page-contact .info-card .value a:hover { color: #ff8a7c; }
 
 /* Services page: stronger editorial hero and calmer programme cards */
-.page-services .hero { position: relative; isolation: isolate; min-height: 390px; display: flex; align-items: center; overflow: hidden; padding: 0 24px; background: linear-gradient(100deg, rgba(5,17,36,.97) 0%, rgba(9,29,58,.9) 46%, rgba(9,29,58,.38) 100%), url('/assets/DSC01006.jpg') center 42%/cover; }
+.page-services .hero { position: relative; isolation: isolate; min-height: 440px; display: flex; align-items: center; overflow: hidden; padding: 0 24px; background: linear-gradient(100deg, rgba(5,17,36,.97) 0%, rgba(9,29,58,.9) 46%, rgba(9,29,58,.38) 100%), url('/assets/DSC01006.jpg') center 22%/cover; }
 .page-services .hero::after { content: ""; position: absolute; z-index: -1; right: -120px; bottom: -260px; width: 580px; height: 580px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; box-shadow: 0 0 0 46px rgba(255,255,255,.025), 0 0 0 92px rgba(255,255,255,.02); }
 .page-services .hero-inner { width: 100%; padding: 86px 0 78px; }
 .page-services .hero .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #ff9b8e; font-size: 12px; letter-spacing: .14em; }
@@ -288,8 +293,11 @@ body.modal-open { overflow: hidden; }
 .page-services .modal { border-radius: 20px; padding: 40px; }
 .page-services .modal h3 { font-size: 26px; line-height: 1.15; }
 @media (max-width: 700px) {
-  .page-services .hero { min-height: 340px; padding: 0 20px; background-position: 58% center; }
-  .page-services .hero-inner { padding: 70px 0 56px; }
+  .page-fred .hero { min-height: 520px; }
+  .page-fred .hero-copy { padding: 72px min(42vw, 300px) 40px 24px; }
+  .page-fred .hero-portrait-wrap { right: -4%; width: 52%; }
+  .page-fred .hero-brand-logo { bottom: 18%; width: min(100%, 300px); }
+  .page-services .hero { min-height: 430px; padding: 0 20px; background-position: 58% 22%; }
   .page-services .hero h1 { font-size: clamp(40px, 11vw, 56px); }
   .page-services .filters-section { padding: 22px 20px 8px; }
   .page-services .grid-section { padding: 24px 20px 72px; }
@@ -302,7 +310,7 @@ body.modal-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-fred .btn-primary, .page-fred .btn-ghost, .page-fred .cta-btn, .page-fred .tab-btn, .page-fred .newsletter-form button,
+  .page-fred .btn-primary, .page-fred .btn-ghost, .page-fred .cta-btn, .page-fred .tab-btn, .page-fred .newsletter-form button, .page-fred .flip-card, .page-fred .fred-service-image,
   .page-services .chip, .page-services .enroll-btn, .page-services .cta-btn, .page-services .card,
   .page-contact .field input, .page-contact .field select, .page-contact .field textarea, .page-contact .submit-btn,
   .modal-submit, .modal-close, .modal-overlay, .modal {

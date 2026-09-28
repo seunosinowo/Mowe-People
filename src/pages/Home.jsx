@@ -2,9 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useScrollReveal from '../hooks/useScrollReveal';
 import {
-  marqueePeople, partners, catData, featuredProgrammes,
+  marqueePeople, partners, catData,
   initialEvents, pillars, articles, testimonials, faqs,
 } from '../data/homeData';
+import { allPrograms, categoryList } from '../data/servicesData';
+
+const summitRegistrationUrl = 'https://zgnp-zngp.maillist-manage.com/ua/Optin?od=11287ecdabbfc3&zx=138125574&lD=117d0fa9a9d5af077&sD=117d0fa9a9d5af092';
 
 async function submitEventRegistration(payload) {
   const response = await fetch('/api/event-registration', {
@@ -29,16 +32,31 @@ export default function Home() {
   const [showAnnounce, setShowAnnounce] = useState(true);
   const [newsletterState, setNewsletterState] = useState({ email: '', submitting: false, success: false });
   const [activePillar, setActivePillar] = useState(0);
-  const [eventPopup, setEventPopup] = useState({ visible: false });
+  const [eventPopup, setEventPopup] = useState({ visible: false, title: 'Future of Work Summit', meta: '1 October 2026 · Online' });
   const [summitModalOpen, setSummitModalOpen] = useState(false);
   const [eventSubmitting, setEventSubmitting] = useState(false);
   const [eventError, setEventError] = useState('');
   const pillarRefs = useRef([]);
+  const featuredServices = categoryList.slice(1).map((category) => ({
+    category,
+    programmes: allPrograms.filter((program) => program.category === category),
+  })).filter(({ category }) => category !== 'Capability Development');
 
   useEffect(() => {
-    const t = setTimeout(() => setEventPopup({ visible: true, title: 'Future of Work Summit', meta: '1 October 2026 · Online' }), 3500);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setEventPopup((popup) => ({ ...popup, visible: true })), 3500);
+    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!summitModalOpen) return undefined;
+    document.body.classList.add('modal-open');
+    const closeOnEscape = (e) => { if (e.key === 'Escape') setSummitModalOpen(false); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.body.classList.remove('modal-open');
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [summitModalOpen]);
 
   useEffect(() => {
     const refs = pillarRefs.current;
@@ -54,17 +72,6 @@ export default function Home() {
     refs.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!summitModalOpen) return undefined;
-    document.body.classList.add('modal-open');
-    const closeOnEscape = (e) => { if (e.key === 'Escape') setSummitModalOpen(false); };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.body.classList.remove('modal-open');
-      window.removeEventListener('keydown', closeOnEscape);
-    };
-  }, [summitModalOpen]);
 
   const openEventForm = (id) => {
     setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, openForm: true } : e)));
@@ -99,7 +106,8 @@ export default function Home() {
   };
 
   const marqueeHtml = marqueePeople.map((p) => (
-    <div className="marquee-card" key={p.name} style={{ background: `url("${p.img}") center/cover` }}>
+    <div className="marquee-card" key={p.name}>
+      <img src={p.img} alt={p.name} />
       <div className="overlay">
         <div className="name">{p.name}</div>
         <div className="role">{p.role}</div>
@@ -128,9 +136,6 @@ export default function Home() {
       <section className="hero">
         <div className="grid-overlay"></div>
         <div className="blue-glow"></div>
-        <div className="hero-photo" aria-hidden="true">
-          <img src="/assets/DSC00975.jpg" alt="" />
-        </div>
         <div className="hero-inner">
           <h1 className="up flex-fx" style={{ animationDelay: '.2s' }}>Workforce Engagement,<br /><span className="growth-reveal">Reimagined for Growth.</span></h1>
           <p className="up" style={{ animationDelay: '.38s' }}>We help organizations turn disengaged teams into workforces that show up, own their results, and grow with the business.</p>
@@ -138,11 +143,11 @@ export default function Home() {
             <Link to="/services" className="btn-primary">Get Started</Link>
           </div>
         </div>
-        <div className="up marquee-wrap" style={{ animationDelay: '.7s' }}>
+        {/* <div className="up marquee-wrap" style={{ animationDelay: '.7s' }}>
           <div className="marquee-track">
             <div className="marquee-set">{marqueeHtml}</div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       <section className="trusted">
@@ -159,14 +164,14 @@ export default function Home() {
           </div>
           <div className="summit-feature-copy">
             <div className="summit-label"><span></span> Upcoming event</div>
-            <p className="summit-date">1 October 2026 <span>·</span> Online</p>
+            <p className="summit-date">1 October 2026 <span>Â·</span> Online</p>
             <h2>Future of Work Summit</h2>
             <p className="summit-description">Get ready for the realities of work ahead: remote work, freelancing, the gig economy, and the age of AI.</p>
             <div className="summit-audience">
               <span>Graduates</span><span>Young professionals</span><span>Corporate members</span>
             </div>
             <p className="summit-access">Your online access link will be shared after registration.</p>
-            <button className="summit-register" onClick={() => { setSummitRegistrationSent(false); setSummitModalOpen(true); }}>Register for the summit</button>
+            <button className="summit-register" type="button" onClick={() => setSummitModalOpen(true)}>Register for the summit</button>
           </div>
         </div>
       </section>
@@ -208,14 +213,14 @@ export default function Home() {
           <h2 className="flex-fx">Featured Offerings</h2>
         </div>
         <div className="featured-grid">
-          {featuredProgrammes.map((p) => (
-            <div className="featured-card" key={p.title}>
-              <div className="thumb" style={{ background: `url("${p.img}") center/cover` }}></div>
+          {featuredServices.map(({ category, programmes }) => (
+            <div className="featured-card" key={category}>
+              <div className="thumb" style={{ background: `url("${programmes[0]?.img ?? ''}") center top/cover` }}></div>
               <div className="body">
-                <div className="kicker">{p.kicker}</div>
-                <h3 className="flex-fx">{p.title}</h3>
-                <p>{p.description}</p>
-                <ul>{p.impact.map((im) => <li key={im}>{im}</li>)}</ul>
+                <div className="kicker">{programmes.length} programmes</div>
+                <h3 className="flex-fx">{category}</h3>
+                <p>Explore our {category.toLowerCase()} services.</p>
+                <ul>{programmes.map((program) => <li key={program.id}>{program.title}</li>)}</ul>
               </div>
             </div>
           ))}
@@ -227,7 +232,7 @@ export default function Home() {
           <div>
             <div className="eyebrow">Calendar</div>
             <h2>Trainings &amp; Events</h2>
-            <p>Open cohorts, corporate workshops, and custom trainings for schools, colleges, and institutes â€” we build the curriculum to fit your students or staff.</p>
+            <p>Open cohorts, corporate workshops, and custom trainings for schools, colleges, and institutes Ã¢â‚¬â€ we build the curriculum to fit your students or staff.</p>
           </div>
         </div>
         <div className="events-grid">
@@ -248,7 +253,7 @@ export default function Home() {
                     <form className="event-form" onSubmit={(e) => handleEventSubmit(e, ev.id)}>
                       <input type="text" placeholder="Your name" className="reg-name" required />
                       <input type="email" placeholder="Your email" className="reg-email" required />
-                      <button type="submit" disabled={eventSubmitting}>{eventSubmitting ? 'Submitting…' : 'Confirm Registration'}</button>
+                      <button type="submit" disabled={eventSubmitting}>{eventSubmitting ? 'Submittingâ€¦' : 'Confirm Registration'}</button>
                       {eventError && <p className="event-form-error" role="alert">{eventError}</p>}
                     </form>
                   ) : (
@@ -276,7 +281,7 @@ export default function Home() {
           <div className="pillars-sticky">
             <div className="eyebrow">Why MOWE Global</div>
             <h2>What Sets Us Apart</h2>
-            <p>Every engagement is built on original, research-backed intellectual property â€” designed to move the needle on real workforce outcomes, not recycled theory.</p>
+            <p>Every engagement is built on original, research-backed intellectual property Ã¢â‚¬â€ designed to move the needle on real workforce outcomes, not recycled theory.</p>
             <div className="pillars-progress">
               {pillars.map((_, i) => (
                 <span key={i} data-i={i} className={i === activePillar ? 'active' : ''}></span>
@@ -311,8 +316,8 @@ export default function Home() {
             <div className="eyebrow">Lead Consultant</div>
             <h2>Fredrick Okeagu</h2>
             <div className="alias">"Fred Rabbi"</div>
-            <p>A seasoned HR professional with 15+ years in Human Capital Management â€” Certified Management Consultant, ISO Certified Consultant, and KPI professional. Public speaker and performance coach helping people and organizations build cultures where commitment is earned.</p>
-            <Link to="/fred-rabbi">Read Full Profile</Link>
+            <p>A seasoned HR professional with 15+ years in Human Capital Management Ã¢â‚¬â€ Certified Management Consultant, ISO Certified Consultant, and KPI professional. Public speaker and performance coach helping people and organizations build cultures where commitment is earned.</p>
+            <Link to="/about">Read Full Profile</Link>
           </div>
         </div>
       </section>
@@ -378,9 +383,9 @@ export default function Home() {
         <div className="newsletter-box">
           <div>
             <h2>Workforce insights, monthly.</h2>
-            <p>One short email on engagement, leadership, and what's working right now â€” no noise.</p>
+            <p>One short email on engagement, leadership, and what's working right now Ã¢â‚¬â€ no noise.</p>
           </div>
-          <div className="newsletter-success" style={{ display: newsletterState.success ? 'block' : 'none' }}>âœ“ Subscribed â€” welcome aboard.</div>
+          <div className="newsletter-success" style={{ display: newsletterState.success ? 'block' : 'none' }}>Ã¢Å“â€œ Subscribed Ã¢â‚¬â€ welcome aboard.</div>
           <form
             className="newsletter-form"
             onSubmit={handleNewsletter}
@@ -394,7 +399,7 @@ export default function Home() {
               onChange={(e) => setNewsletterState((s) => ({ ...s, email: e.target.value }))}
             />
             <button type="submit" disabled={newsletterState.submitting}>
-              {newsletterState.submitting ? 'Submittingâ€¦' : 'Subscribe'}
+              {newsletterState.submitting ? 'SubmittingÃ¢â‚¬Â¦' : 'Subscribe'}
             </button>
           </form>
         </div>
@@ -413,28 +418,22 @@ export default function Home() {
 
       {summitModalOpen && (
         <div className="summit-modal-backdrop" onClick={() => setSummitModalOpen(false)}>
-          <div className="summit-modal" role="dialog" aria-modal="true" aria-labelledby="summit-modal-title" onClick={(e) => e.stopPropagation()}>
+          <div className="summit-modal" role="dialog" aria-modal="true" aria-label="Future of Work Summit registration" onClick={(e) => e.stopPropagation()}>
             <button className="summit-modal-close" type="button" aria-label="Close registration" onClick={() => setSummitModalOpen(false)}>&times;</button>
-            <div className="summit-label"><span></span> 1 October 2026 · Online</div>
-            <h2 id="summit-modal-title">Register for the Future of Work Summit</h2>
-            <iframe
-              className="summit-zoho-form"
-              title="Register for the Future of Work Summit"
-              src="https://zgnp-zngp.maillist-manage.com/ua/Optin?od=11287ecdabbfc3&zx=138125574&lD=117d0fa9a9d5af077&sD=117d0fa9a9d5af092"
-              loading="lazy"
-            />
+            <iframe className="summit-zoho-form" title="Register for the Future of Work Summit" src={summitRegistrationUrl} loading="lazy" />
           </div>
         </div>
       )}
       {eventPopup.visible && (
         <div className="event-popup up">
-          <button className="event-popup-close" aria-label="Dismiss" onClick={() => setEventPopup((p) => ({ ...p, visible: false }))}>&times;</button>
+          <button className="event-popup-close" type="button" aria-label="Dismiss upcoming event" onClick={() => setEventPopup((popup) => ({ ...popup, visible: false }))}>&times;</button>
           <div className="tag"><span>Upcoming Event</span></div>
           <div className="title">{eventPopup.title}</div>
           <div className="meta">{eventPopup.meta}</div>
-          <button type="button" onClick={() => { setEventPopup((p) => ({ ...p, visible: false })); setSummitModalOpen(true); }}>Register now</button>
+          <button className="event-popup-register" type="button" onClick={() => setSummitModalOpen(true)}>Register now</button>
         </div>
       )}
     </div>
   );
 }
+

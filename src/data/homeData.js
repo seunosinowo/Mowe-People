@@ -19,25 +19,25 @@ export const catData = [
     icon: '★',
     title: 'Leadership & Executive Development',
     items: ['P.A.S.T Leadership', 'Reputational Capital (R-CAP)', 'Understanding Self & Managing Others'],
-    img: '/assets/DSC00975.jpg',
+    img: '/assets/LEED.png',
   },
   {
     icon: '◈',
     title: 'Workforce Intelligence & Diagnostics',
     items: ['Workforce Republic', 'AURA Framework', 'MoWE-BIS Survey', 'ECAP'],
-    img: '/assets/DSC00997.jpg',
+    img: '/assets/wORKFORCE%20ID.png',
   },
   {
     icon: '▲',
     title: 'Performance & Organizational Systems',
     items: ['2E2P Value Matrix', 'Enterprise Guidance & Management'],
-    img: '/assets/DSC01006.jpg',
+    img: '/assets/PO%20SYSTEMS.png',
   },
   {
     icon: '◆',
     title: 'Capability Development Programmes',
     items: ['Business As Game', 'Bringing Your A-Game to Work', 'CBAM Mini-MBA'],
-    img: '/assets/DSC01041.jpg',
+    img: '/assets/capability-development-banner.png',
   },
 ];
 

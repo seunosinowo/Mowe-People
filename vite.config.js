@@ -55,8 +55,15 @@ function copyAssetsPlugin() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (req.url.startsWith('/assets/')) {
-          const filePath = path.resolve(__dirname, req.url.slice(1))
-          if (fs.existsSync(filePath)) {
+          let assetPath
+          try {
+            assetPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname)
+          } catch {
+            return next()
+          }
+          const assetsRoot = path.resolve(__dirname, 'assets')
+          const filePath = path.resolve(__dirname, assetPath.slice(1))
+          if (filePath.startsWith(`${assetsRoot}${path.sep}`) && fs.existsSync(filePath)) {
             const ext = path.extname(filePath).toLowerCase()
             const types = {
               '.png': 'image/png',

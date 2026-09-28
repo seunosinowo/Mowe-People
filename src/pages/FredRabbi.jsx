@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { books, qualifications, roles, values, galleryItems, flipCards } from '../data/fredData';
+import { books, qualifications, roles, galleryItems, flipCards } from '../data/fredData';
 
 async function subscribeToNewsletter(email) {
   console.log('Newsletter signup (not yet sent anywhere):', email);
@@ -53,6 +53,10 @@ export default function FredRabbi() {
     <div className="page-fred page-dark">
       <section className="hero">
         <img className="hero-ambient" src="/assets/fred/fred.jpeg" alt="" />
+        <div className="hero-portrait-wrap" aria-hidden="true">
+          <img className="hero-brand-logo" src="/assets/fred-rabbi-logo.png" alt="" />
+          <img className="hero-portrait" src="/assets/fred-portrait-nobg.png" alt="" />
+        </div>
         <div className="hero-copy">
           <div className="up eyebrow-dot" style={{ animationDelay: '.1s' }}><span className="dot"></span>Public Speaker · Performance Coach</div>
           <h1 className="up flex-fx hero-statement" style={{ animationDelay: '.25s' }}>I turn potential<br />into performance<br />that lasts.</h1>
@@ -194,21 +198,6 @@ export default function FredRabbi() {
           <div className={`cred-list${activeTab === 'roles' ? ' active' : ''}`}>
             {roles.map((r) => <div className="cred-item" key={r}>{r}</div>)}
           </div>
-        </div>
-      </section>
-
-      <section className="values-section">
-        <div className="section-head">
-          <div className="eyebrow" style={{ textAlign: 'center' }}>What I Stand For</div>
-          <h2 className="flex-fx">Core Values</h2>
-        </div>
-        <div className="values-grid">
-          {values.map((v) => (
-            <div className="value-card" key={v.title}>
-              <h3>{v.title}</h3>
-              <p>{v.text}</p>
-            </div>
-          ))}
         </div>
       </section>
 
