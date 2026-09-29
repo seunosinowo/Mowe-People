@@ -56,7 +56,7 @@ export const flipCards = [
     description: 'Executive and personal coaching sessions focused on sustainable performance, not quick fixes.',
   },
   {
-    img: '/assets/fred/corporate.jpeg',
+    img: '/assets/fred_h.jpeg',
     title: 'Corporate Training',
     description: 'Half-day to multi-week programmes, tailored to your team\'s real gaps.',
   },
