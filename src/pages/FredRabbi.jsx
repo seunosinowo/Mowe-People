@@ -119,33 +119,43 @@ export default function FredRabbi() {
       </section>
 
       <section className="flip-section">
+        <div className="section-head">
+          <div className="eyebrow" style={{ textAlign: 'center' }}>Services</div>
+          <h2 className="flex-fx">Speaking, Coaching &amp; Training</h2>
+        </div>
         <div className="flip-grid">
           {flipCards.map((c) => (
             <article
-              className={`flip-card${flippedCard === c.title ? ' is-flipped' : ''}`}
+              className={`fred-service-card${c.title === 'Corporate Training' ? ' is-corporate' : ''}${flippedCard === c.title ? ' is-flipped' : ''}`}
               key={c.title}
-              role="button"
+              role="group"
               tabIndex={0}
-              aria-label={`${c.title}. ${flippedCard === c.title ? 'Show image' : 'Show details'}`}
-              aria-pressed={flippedCard === c.title}
-              onClick={() => setFlippedCard(flippedCard === c.title ? null : c.title)}
+              aria-label={`${c.title} service card. Focus or hover to reveal details.`}
+              onClick={(event) => {
+                if (event.target.closest('a')) return;
+                setFlippedCard(flippedCard === c.title ? null : c.title);
+              }}
               onKeyDown={(event) => {
+                if (event.target.closest('a')) return;
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault();
                   setFlippedCard(flippedCard === c.title ? null : c.title);
                 }
               }}
             >
-              <div className="flip-inner">
-                <div className="flip-face flip-front">
+              <div className="fred-service-inner">
+                <div className="fred-service-face fred-service-front">
                   <img className="fred-service-image" src={c.img} alt="" />
-                  <div className="fred-service-copy"><h3>{c.title}</h3></div>
+                  <div className="fred-service-copy">
+                    <h3>{c.title}</h3>
+                    <span className="fred-service-arrow" aria-hidden="true">↗</span>
+                  </div>
                 </div>
-                <div className="flip-face flip-back">
+                <div className="fred-service-face fred-service-back">
                   <div className="fred-service-copy">
                     <h3>{c.title}</h3>
                     <p>{c.description}</p>
-                    <span className="flip-hint">Click to view image</span>
+                    <Link to="/contact#book" className="fred-service-cta">Book a Consult</Link>
                   </div>
                 </div>
               </div>
