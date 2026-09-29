@@ -53,7 +53,7 @@ export default function FredRabbi() {
   return (
     <div className="page-fred page-dark">
       <section className="hero">
-        <img className="hero-ambient" src="/assets/fred/fred.jpeg" alt="" />
+        <img className="hero-ambient" src="/assets/fred_hero.jpeg" alt="" />
         <div className="hero-portrait-wrap" aria-hidden="true">
           <img className="hero-brand-logo" src="/assets/fred-rabbi-logo.png" alt="" />
           <img className="hero-portrait" src="/assets/fred-portrait-nobg.png" alt="" />

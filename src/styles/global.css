@@ -252,7 +252,7 @@ a:hover { color: #a01f15; }
 .page-home .hero .grid-overlay { z-index: 1; opacity: .48; }
 .page-home .hero .blue-glow { z-index: 1; left: 50%; margin-left: -380px; top: -360px; }
 .page-home .hero-inner { max-width: 1240px; width: 100%; min-height: 440px; margin: 0 auto; padding: 70px 24px 48px; align-items: center; text-align: center; }
-.page-home .hero h1 { max-width: 900px; font-size: clamp(44px, 6vw, 76px); }
+.page-home .hero h1 { max-width: 900px; font-size: clamp(44px, 6vw, 76px); line-height: 1.12; }
 .page-home .hero p { max-width: 640px; color: #d2dbea; }
 .page-home .marquee-wrap { z-index: 2; width: min(100%, 800px); margin: 0 auto; padding: 0 24px; -webkit-mask-image: none; mask-image: none; }
 .page-home .marquee-track { width: 100%; gap: 0; animation: none; padding: 0 0 8px; }
