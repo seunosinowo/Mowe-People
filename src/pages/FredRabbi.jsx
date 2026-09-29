@@ -11,6 +11,7 @@ async function subscribeToNewsletter(email) {
 export default function FredRabbi() {
   useScrollReveal();
   const [activeTab, setActiveTab] = useState('qual');
+  const [flippedCard, setFlippedCard] = useState(null);
   const [newsletterState, setNewsletterState] = useState({ email: '', submitting: false, success: false });
   const statsRef = useRef(null);
   const [stats, setStats] = useState({ years: 0, lives: 0, started: false });
@@ -120,11 +121,33 @@ export default function FredRabbi() {
       <section className="flip-section">
         <div className="flip-grid">
           {flipCards.map((c) => (
-            <article className="flip-card" key={c.title}>
-              <img className="fred-service-image" src={c.img} alt="" />
-              <div className="fred-service-copy">
-                <h3>{c.title}</h3>
-                <p>{c.description}</p>
+            <article
+              className={`flip-card${flippedCard === c.title ? ' is-flipped' : ''}`}
+              key={c.title}
+              role="button"
+              tabIndex={0}
+              aria-label={`${c.title}. ${flippedCard === c.title ? 'Show image' : 'Show details'}`}
+              aria-pressed={flippedCard === c.title}
+              onClick={() => setFlippedCard(flippedCard === c.title ? null : c.title)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setFlippedCard(flippedCard === c.title ? null : c.title);
+                }
+              }}
+            >
+              <div className="flip-inner">
+                <div className="flip-face flip-front">
+                  <img className="fred-service-image" src={c.img} alt="" />
+                  <div className="fred-service-copy"><h3>{c.title}</h3></div>
+                </div>
+                <div className="flip-face flip-back">
+                  <div className="fred-service-copy">
+                    <h3>{c.title}</h3>
+                    <p>{c.description}</p>
+                    <span className="flip-hint">Click to view image</span>
+                  </div>
+                </div>
               </div>
             </article>
           ))}

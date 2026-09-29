@@ -281,7 +281,7 @@ export default function Home() {
           <div className="pillars-sticky">
             <div className="eyebrow">Why MOWE Global</div>
             <h2>What Sets Us Apart</h2>
-            <p>Every engagement is built on original, research-backed intellectual property Ã¢â‚¬â€ designed to move the needle on real workforce outcomes, not recycled theory.</p>
+            <p>Every engagement is built on original, research-backed intellectual property designed to move the needle on real workforce outcomes, not recycled theory.</p>
             <div className="pillars-progress">
               {pillars.map((_, i) => (
                 <span key={i} data-i={i} className={i === activePillar ? 'active' : ''}></span>

@@ -39,8 +39,8 @@ function PageWrapper() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<FredRabbi />} />
-          <Route path="/fred-rabbi" element={<Navigate to="/about" replace />} />
+          <Route path="/fred-rabbi" element={<FredRabbi />} />
+          <Route path="/about" element={<Navigate to="/fred-rabbi" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>

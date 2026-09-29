@@ -3,13 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
   { key: 'home', to: '/', label: 'Home' },
-  { key: 'fredrabbi', to: '/about', label: 'About' },
+  { key: 'fredrabbi', to: '/fred-rabbi', label: 'Fred Rabbi' },
   { key: 'contact', to: '/contact', label: 'Contact' },
 ];
 
 export default function Header() {
   const location = useLocation();
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const getActiveKey = () => {
@@ -52,11 +51,9 @@ export default function Header() {
             >
               Home
             </Link>
-            <div
-              className={`nav-services${servicesOpen ? ' open' : ''}`}
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
+            <Link to="/services" className={`nav-link${active === 'services' ? ' active' : ''}`}>
+              Services
+              {/* Dropdown submenu retained for future use:
               <span className={`trigger${active === 'services' ? ' active' : ''}`}>
                 Services
                 <span className="chevron">▾</span>
@@ -79,7 +76,7 @@ export default function Header() {
                 <div className="dd-panel">
                   <div className="dd-heading">Quick Links</div>
                   <div className="dd-list">
-                    <Link to="/about">Meet Fred Rabbi</Link>
+                    <Link to="/fred-rabbi">Meet Fred Rabbi</Link>
                     <Link to="/contact">Contact Us</Link>
                     <Link to="/services">All Programmes</Link>
                   </div>
@@ -94,12 +91,13 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-            </div>
+              */}
+            </Link>
             <Link
-              to="/about"
+              to="/fred-rabbi"
               className={`nav-link${active === 'fredrabbi' ? ' active' : ''}`}
             >
-              About
+              Fred Rabbi
             </Link>
             <Link
               to="/contact"
@@ -139,12 +137,12 @@ export default function Header() {
             Services
           </Link>
           <Link
-            to="/about"
+            to="/fred-rabbi"
             className={`mobile-link${active === 'fredrabbi' ? ' active' : ''}`}
             style={{ transitionDelay: '160ms' }}
             onClick={() => setMobileOpen(false)}
           >
-            About
+            Fred Rabbi
           </Link>
           <Link
             to="/contact"
